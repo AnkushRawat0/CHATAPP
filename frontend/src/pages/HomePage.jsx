@@ -1,6 +1,12 @@
-import React from 'react'
+import React , {useState} from 'react'
+
 
 const HomePage = () => {
+    const [password ,setShowPassword] = useState(false) ;
+    const [formData , setFormData] =useState({
+        email : "" ,
+        password : ""
+    })
   return (
     <div>
         HomePage
