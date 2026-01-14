@@ -4,7 +4,6 @@ import { Image, Send, X } from "lucide-react";
 import toast from "react-hot-toast";
 
 const MessageInput = () => {
-
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
@@ -12,12 +11,10 @@ const MessageInput = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (!file) return;
     if (!file.type.startsWith("image/")) {
       toast.error("Please select an image file");
       return;
     }
-    
 
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -28,7 +25,6 @@ const MessageInput = () => {
 
   const removeImage = () => {
     setImagePreview(null);
-   
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -110,5 +106,4 @@ const MessageInput = () => {
     </div>
   );
 };
-
 export default MessageInput;
