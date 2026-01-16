@@ -19,14 +19,15 @@ export const getUserForSidebar = async (req, res) => {
 export const getMessages = async(req,res) => {
     try {
        const { id : userToChat } = req.params;
-       const myId =req.user._id ;
+       const myId =req.user._id.toString() ;
 
        const messages = await Message.find({
         $or:[
-            {from:myId , to : userToChat} ,
-            {from:userToChat , to : myId}
+            {senderId:myId , receiverId : userToChat} ,
+            {senderId:userToChat , receiverId : myId}
         ]
-       })
+       });
+       console.log(messages) ;
 
        res.status(200).json(messages) ;
         
@@ -41,7 +42,7 @@ export const sendMessages = async(req,res)=> {
     try {
         const {text , image} = req.body ; 
         const {id : receiverId} = req.params ;
-        const senderId = req.user._id ; 
+        const senderId = req.user._id.toString() ; 
 
 
         let imageUrl ;
@@ -55,13 +56,14 @@ export const sendMessages = async(req,res)=> {
 
         const newMessage = new Message({
             senderId ,
-            receiverId ,
+            receiverId : receiverId.toString() ,
             text ,
             image : imageUrl
 
         })
 
-        await newMessage.save() ; 
+       const msg =  await newMessage.save() ; 
+       console.log("new message saved" , msg) ;
         //todo : implement socket.io to send real time message
 
         res.status(201).json(newMessage) ; 

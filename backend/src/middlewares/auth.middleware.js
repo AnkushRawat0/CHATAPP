@@ -12,6 +12,7 @@ export const protectedRoute = async (req, res, next) => {
       return res.status(401).json({ message: "Not authorized, token failed" });
     }
     const user = await User.findById(decoded.userId).select("-password");
+    // console.log("protected user", user) ;
     if (!user) {
       return res
         .status(401)
