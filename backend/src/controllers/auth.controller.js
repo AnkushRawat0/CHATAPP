@@ -73,6 +73,7 @@ export const login = async (req, res) => {
     return res.status(500).json({ message: "server error" });
   }
 };
+
 export const logout = (req, res) => {
   try {
     res.cookie("jwt", "", { maxAge: 0 });

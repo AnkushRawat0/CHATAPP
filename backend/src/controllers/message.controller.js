@@ -27,7 +27,7 @@ export const getMessages = async(req,res) => {
             {senderId:userToChat , receiverId : myId}
         ]
        });
-       console.log(messages) ;
+      
 
        res.status(200).json(messages) ;
         
